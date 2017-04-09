@@ -12,9 +12,6 @@
 		74E31C4E1E98870800F2E9DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E31C4C1E98870800F2E9DE /* Main.storyboard */; };
 		74E31C501E98870800F2E9DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74E31C4F1E98870800F2E9DE /* Assets.xcassets */; };
 		74E31C531E98870800F2E9DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E31C511E98870800F2E9DE /* LaunchScreen.storyboard */; };
-		74E31C5C1E989A4000F2E9DE /* MTLPushedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E31C5B1E989A4000F2E9DE /* MTLPushedViewController.m */; };
-		74E31C5F1E989B8D00F2E9DE /* MTLPushAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E31C5E1E989B8D00F2E9DE /* MTLPushAnimatedTransition.m */; };
-		74E31C631E992D7200F2E9DE /* MTLTransitionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E31C621E992D7200F2E9DE /* MTLTransitionTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,12 +23,6 @@
 		74E31C4F1E98870800F2E9DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74E31C521E98870800F2E9DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74E31C541E98870800F2E9DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74E31C5A1E989A4000F2E9DE /* MTLPushedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLPushedViewController.h; sourceTree = "<group>"; };
-		74E31C5B1E989A4000F2E9DE /* MTLPushedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLPushedViewController.m; sourceTree = "<group>"; };
-		74E31C5D1E989B8D00F2E9DE /* MTLPushAnimatedTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLPushAnimatedTransition.h; sourceTree = "<group>"; };
-		74E31C5E1E989B8D00F2E9DE /* MTLPushAnimatedTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLPushAnimatedTransition.m; sourceTree = "<group>"; };
-		74E31C611E992D7200F2E9DE /* MTLTransitionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLTransitionTableViewController.h; sourceTree = "<group>"; };
-		74E31C621E992D7200F2E9DE /* MTLTransitionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLTransitionTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +58,6 @@
 				74E31C4C1E98870800F2E9DE /* Main.storyboard */,
 				74E31C461E98870800F2E9DE /* AppDelegate.h */,
 				74E31C471E98870800F2E9DE /* AppDelegate.m */,
-				74E31C611E992D7200F2E9DE /* MTLTransitionTableViewController.h */,
-				74E31C621E992D7200F2E9DE /* MTLTransitionTableViewController.m */,
-				74E31C601E992D4400F2E9DE /* PushAnimation */,
 				74E31C4F1E98870800F2E9DE /* Assets.xcassets */,
 				74E31C431E98870800F2E9DE /* Supporting Files */,
 			);
@@ -84,17 +72,6 @@
 				74E31C441E98870800F2E9DE /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		74E31C601E992D4400F2E9DE /* PushAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				74E31C5A1E989A4000F2E9DE /* MTLPushedViewController.h */,
-				74E31C5B1E989A4000F2E9DE /* MTLPushedViewController.m */,
-				74E31C5D1E989B8D00F2E9DE /* MTLPushAnimatedTransition.h */,
-				74E31C5E1E989B8D00F2E9DE /* MTLPushAnimatedTransition.m */,
-			);
-			name = PushAnimation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,9 +147,6 @@
 			files = (
 				74E31C481E98870800F2E9DE /* AppDelegate.m in Sources */,
 				74E31C451E98870800F2E9DE /* main.m in Sources */,
-				74E31C5C1E989A4000F2E9DE /* MTLPushedViewController.m in Sources */,
-				74E31C631E992D7200F2E9DE /* MTLTransitionTableViewController.m in Sources */,
-				74E31C5F1E989B8D00F2E9DE /* MTLPushAnimatedTransition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +303,7 @@
 				74E31C591E98870800F2E9DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
