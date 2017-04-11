@@ -10,6 +10,16 @@
 
 @implementation MTNativeTransition
 
+- (instancetype)initWithTransitionDuration:(NSTimeInterval)duration
+                                 operation:(MTTransitionOperation)operation
+{
+    self = [super initWithTransitionDuration:duration operation:operation];
+    if (self) {
+        _style = MTNativeTransitionStyleFlipHorizontal;
+    }
+    return self;
+}
+
 - (void)performAnimateTranstionWithTransitoionContext:(id<UIViewControllerContextTransitioning>)transitionContext
                                    fromViewController:(UIViewController *)fromVC
                                      toViewController:(UIViewController *)toVC

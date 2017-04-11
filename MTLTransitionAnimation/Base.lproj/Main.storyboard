@@ -25,7 +25,7 @@
                                 <rect key="frame" x="161" y="318" width="53" height="30"/>
                                 <state key="normal" title="Present"/>
                                 <connections>
-                                    <segue destination="Xmh-fR-G7x" kind="show" identifier="Present Animation" id="sR5-Oc-AnL"/>
+                                    <segue destination="Xmh-fR-G7x" kind="presentation" identifier="Present Animation" id="sR5-Oc-AnL"/>
                                 </connections>
                             </button>
                         </subviews>

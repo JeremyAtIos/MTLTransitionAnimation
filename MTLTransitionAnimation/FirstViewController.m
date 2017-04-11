@@ -10,8 +10,11 @@
 #import "SecondViewController.h"
 #import "MTNativeTransition.h"
 #import "MTCircleSpreadTransition.h"
+#import "MTDrawerTransition.h"
 
 @interface FirstViewController () <UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
+
+@property (nonatomic, assign) CGPoint touchPoint;
 
 @end
 
@@ -22,6 +25,20 @@
     [super viewDidLoad];
     
     self.navigationController.delegate = self;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    NSLog(@"viewWillDisappear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    NSLog(@"viewDidDisappear");
 }
 
 - (IBAction)dismissButtonClicked:(UIStoryboardSegue *)segue
@@ -39,6 +56,16 @@
 
 #pragma mark - UIViewControllerTransitioningDelegate
 
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    return [[MTCircleSpreadTransition alloc] initWithTransitionDuration:1.0 operation:MTTransitionOperationPresent];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [[MTCircleSpreadTransition alloc] initWithTransitionDuration:1.0 operation:MTTransitionOperationDismiss];
+}
+
 #pragma mark - UINavigationControllerDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
@@ -46,10 +73,8 @@
                                                fromViewController:(UIViewController *)fromVC
                                                  toViewController:(UIViewController *)toVC
 {
-    MTCircleSpreadTransition *transition = [[MTCircleSpreadTransition alloc] init];
-    transition.duration = 0.5;
-    
-    return transition;
+    return [[MTNativeTransition alloc] initWithTransitionDuration:1.0 operation:MTTransitionOperationPush];
 }
+
 
 @end

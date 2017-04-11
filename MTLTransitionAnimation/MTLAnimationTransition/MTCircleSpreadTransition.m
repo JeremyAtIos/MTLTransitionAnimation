@@ -14,42 +14,109 @@
 
 @implementation MTCircleSpreadTransition
 
-- (void)performAnimateTranstionWithTransitoionContext:(id<UIViewControllerContextTransitioning>)transitionContext
+- (instancetype)initWithTransitionDuration:(NSTimeInterval)duration
+                                 operation:(MTTransitionOperation)operation
+{
+    self = [super initWithTransitionDuration:duration operation:operation];
+    if (self) {
+        _startPoint = CGPointMake(100, 200);
+        _minRadius = 5.0;
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    return [self initWithTransitionDuration:1.0 operation:MTTransitionOperationPush];
+}
+
+- (void)setStartPoint:(CGPoint)startPoint
+{
+    _startPoint = startPoint.x < 0 || startPoint.y < 0 ? CGPointMake(64, 64) : startPoint;
+}
+
+- (void)setMinRadius:(CGFloat)minRadius
+{
+    _minRadius = minRadius < 0 ? 5.0 : minRadius;
+}
+
+- (void)performPositiveTranstionWithTransitoionContext:(id<UIViewControllerContextTransitioning>)transitionContext
+                                    fromViewController:(UIViewController *)fromVC
+                                      toViewController:(UIViewController *)toVC
+{
+    UIView *containerView = [transitionContext containerView];
+    [containerView addSubview:toVC.view];
+    
+    UIBezierPath *startCirclePath = [self createCirclePathWithContainerView:containerView isCover:NO];
+    
+    UIBezierPath *endCirclePath = [self createCirclePathWithContainerView:containerView isCover:YES];
+    
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = endCirclePath.CGPath;
+    
+    toVC.view.layer.mask = maskLayer;
+    [self executePathAnimationWithTransitionContext:transitionContext
+                                           FromPath:startCirclePath
+                                             toPath:endCirclePath
+                                            atLayer:maskLayer];
+}
+
+- (void)performReverseTranstionWithTransitoionContext:(id<UIViewControllerContextTransitioning>)transitionContext
                                    fromViewController:(UIViewController *)fromVC
                                      toViewController:(UIViewController *)toVC
 {
     UIView *containerView = [transitionContext containerView];
     [containerView addSubview:toVC.view];
+    [containerView addSubview:fromVC.view];
     
-    CGPoint startPoint = CGPointMake(100, 100);
+    UIBezierPath *startCirclePath = [self createCirclePathWithContainerView:containerView isCover:YES];
     
-    //动画的初始路径
-    UIBezierPath *startCirclePath = [UIBezierPath bezierPathWithArcCenter:startPoint radius:1.0 startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    UIBezierPath *endCirclePath = [self createCirclePathWithContainerView:containerView isCover:NO];
     
-    //求出动画结束路径的半径
-    CGFloat x = startPoint.x;
-    CGFloat y = startPoint.y;
-    CGFloat endX = MAX(x, containerView.bounds.size.width - x);
-    CGFloat endY = MAX(y, containerView.bounds.size.height - y);
-    CGFloat endRadius = sqrt(pow(endX, 2) + pow(endY, 2));
-    
-    //动画的结束路径
-    UIBezierPath *endCirclePath = [UIBezierPath bezierPathWithArcCenter:startPoint radius:endRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
-    
-    //设置目的视图的蒙版
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endCirclePath.CGPath;//传入结束路径，因为动画完成后会被移除
-    toVC.view.layer.mask = maskLayer;
+    maskLayer.path = endCirclePath.CGPath;
     
-    //基础动画
+    fromVC.view.layer.mask = maskLayer;
+    [self executePathAnimationWithTransitionContext:transitionContext
+                                           FromPath:startCirclePath
+                                             toPath:endCirclePath
+                                            atLayer:maskLayer];
+}
+
+
+//动画部分
+- (void)executePathAnimationWithTransitionContext:(id<UIViewControllerContextTransitioning>)transitionContext
+                                         FromPath:(UIBezierPath *)fromPath
+                                           toPath:(UIBezierPath *)toPath
+                                          atLayer:(CAShapeLayer *)maskLayer
+
+{
     CABasicAnimation *circleSpreadAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-    circleSpreadAnimation.fromValue = (__bridge id)startCirclePath.CGPath;
-    circleSpreadAnimation.toValue = (__bridge id)endCirclePath.CGPath;
+    circleSpreadAnimation.fromValue = (__bridge id _Nullable)(fromPath.CGPath);
+    circleSpreadAnimation.toValue = (__bridge id _Nullable)(toPath.CGPath);
     circleSpreadAnimation.duration = self.duration;
     circleSpreadAnimation.delegate = self;
     [circleSpreadAnimation setValue:transitionContext forKey:@"transitionContext"];
-    [maskLayer addAnimation:circleSpreadAnimation forKey:@"Circel Spread"];
+    [maskLayer addAnimation:circleSpreadAnimation forKey:@"Circle Spread"];
 }
+
+//动画路径
+- (UIBezierPath *)createCirclePathWithContainerView:(UIView *)containerView
+                                            isCover:(BOOL)isCover
+{
+    if (isCover) {
+        CGFloat x = self.startPoint.x;
+        CGFloat y = self.startPoint.y;
+        CGFloat maxX = MAX(x, containerView.bounds.size.width - x);
+        CGFloat maxY = MAX(y, containerView.bounds.size.height - y);
+        CGFloat maxRadius = sqrt(pow(maxX, 2) + pow(maxY, 2));
+        return [UIBezierPath bezierPathWithArcCenter:self.startPoint radius:maxRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    } else {
+        return [UIBezierPath bezierPathWithArcCenter:self.startPoint radius:self.minRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    }
+}
+
+#pragma mark - CAAnimationDelegate
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {

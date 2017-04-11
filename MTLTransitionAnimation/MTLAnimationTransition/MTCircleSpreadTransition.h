@@ -6,8 +6,12 @@
 //  Copyright © 2017年 xiaowei. All rights reserved.
 //
 
-#import "MTBasicTransition.h"
+#import "MTReverseTranstion.h"
 
-@interface MTCircleSpreadTransition : MTBasicTransition
+@interface MTCircleSpreadTransition : MTReverseTranstion
+
+@property (nonatomic, assign) CGPoint startPoint;//圆圈动画中心点
+
+@property (nonatomic, assign) CGFloat minRadius;//圆圈动画最小半径
 
 @end

@@ -10,8 +10,7 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, MTTransitionOperation) { //控制器跳转方式
-    MTTransitionOperationNone = 0,
-    MTTransitionOperationPush,
+    MTTransitionOperationPush = 0,
     MTTransitionOperationPop,
     MTTransitionOperationPresent,
     MTTransitionOperationDismiss
@@ -19,9 +18,12 @@ typedef NS_ENUM(NSUInteger, MTTransitionOperation) { //控制器跳转方式
 
 @interface MTBasicTransition : NSObject <UIViewControllerAnimatedTransitioning>
 
-@property (nonatomic, assign) NSTimeInterval duration;
+@property (nonatomic, assign, readonly) NSTimeInterval duration;
 
-@property (nonatomic, assign) MTTransitionOperation transitionOperation;
+@property (nonatomic, assign, readonly) MTTransitionOperation transitionOperation;
+
+- (instancetype)initWithTransitionDuration:(NSTimeInterval)duration
+                                 operation:(MTTransitionOperation)operation;
 
 - (void)performAnimateTranstionWithTransitoionContext:(id<UIViewControllerContextTransitioning>)transitionContext
                                    fromViewController:(UIViewController *)fromVC
