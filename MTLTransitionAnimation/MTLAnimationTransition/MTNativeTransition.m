@@ -10,10 +10,9 @@
 
 @implementation MTNativeTransition
 
-- (instancetype)initWithTransitionDuration:(NSTimeInterval)duration
-                                 operation:(MTTransitionOperation)operation
+- (instancetype)init
 {
-    self = [super initWithTransitionDuration:duration operation:operation];
+    self = [super init];
     if (self) {
         _style = MTNativeTransitionStyleFlipHorizontal;
     }

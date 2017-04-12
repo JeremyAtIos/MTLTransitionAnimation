@@ -8,30 +8,21 @@
 
 #import "MTBasicTransition.h"
 
-@interface MTBasicTransition ()
-
-@property (nonatomic, assign, readwrite) NSTimeInterval duration;
-
-@property (nonatomic, assign, readwrite) MTTransitionOperation transitionOperation;
-
-@end
-
 @implementation MTBasicTransition
 
-- (instancetype)initWithTransitionDuration:(NSTimeInterval)duration
-                                 operation:(MTTransitionOperation)operation
++ (instancetype)transition
 {
-    self = [super init];
-    if (self) {
-        _duration = duration;
-        _transitionOperation = operation;
-    }
-    return self;
+    return [[self alloc] init];
 }
 
 - (instancetype)init
 {
-    return [self initWithTransitionDuration:1.0 operation:MTTransitionOperationPush];
+    self = [super init];
+    if (self) {
+        _duration = 1.0;
+        _transitionOperation = MTTransitionOperationPush;
+    }
+    return self;
 }
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext

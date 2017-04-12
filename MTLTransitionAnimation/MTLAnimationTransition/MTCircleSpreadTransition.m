@@ -14,20 +14,14 @@
 
 @implementation MTCircleSpreadTransition
 
-- (instancetype)initWithTransitionDuration:(NSTimeInterval)duration
-                                 operation:(MTTransitionOperation)operation
+- (instancetype)init
 {
-    self = [super initWithTransitionDuration:duration operation:operation];
+    self = [super init];
     if (self) {
-        _startPoint = CGPointMake(100, 200);
+        _startPoint = CGPointMake(64, 64);
         _minRadius = 5.0;
     }
     return self;
-}
-
-- (instancetype)init
-{
-    return [self initWithTransitionDuration:1.0 operation:MTTransitionOperationPush];
 }
 
 - (void)setStartPoint:(CGPoint)startPoint

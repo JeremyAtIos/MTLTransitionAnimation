@@ -16,6 +16,8 @@
 
 @property (nonatomic, assign) CGPoint touchPoint;
 
+@property (nonatomic, strong) MTCircleSpreadTransition *transition;
+
 @end
 
 @implementation FirstViewController
@@ -58,12 +60,14 @@
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {
-    return [[MTCircleSpreadTransition alloc] initWithTransitionDuration:1.0 operation:MTTransitionOperationPresent];
+    self.transition.transitionOperation = MTTransitionOperationPresent;
+    return self.transition;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    return [[MTCircleSpreadTransition alloc] initWithTransitionDuration:1.0 operation:MTTransitionOperationDismiss];
+    self.transition.transitionOperation = MTTransitionOperationDismiss;
+    return self.transition;
 }
 
 #pragma mark - UINavigationControllerDelegate
@@ -73,7 +77,17 @@
                                                fromViewController:(UIViewController *)fromVC
                                                  toViewController:(UIViewController *)toVC
 {
-    return [[MTNativeTransition alloc] initWithTransitionDuration:1.0 operation:MTTransitionOperationPush];
+    self.transition.transitionOperation = operation == UINavigationControllerOperationPush ? MTTransitionOperationPush : MTTransitionOperationPop;
+    return _transition;
+}
+
+- (MTCircleSpreadTransition *)transition
+{
+    if (!_transition) {
+        _transition = [MTCircleSpreadTransition transition];
+//        _transition.startPoint = CGPointMake(200, 300);
+    }
+    return _transition;
 }
 
 
